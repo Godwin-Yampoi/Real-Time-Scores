@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <title>Real-time Scores and Statistics</title>
+  </head>
+  <body>
+    <header>
+
+        <div class="logo"><img src="https://i.pinimg.com/originals/51/5e/ed/515eed2e3701d135a33a0be5ac493941.jpg" alt="My logo">Football App</div>
+        <nav>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Teams</a></li>
+            <li><a href="#">Players</a></li>
+            <li><a href="#">News</a></li>
+            <li><a href="#">images</a></li>
+            <li><a href="#">Videos</a></li>
+            <li><a href="#">Latest News</a></li>
+
+ 
+          </ul>
+        </nav>
+      </header>
+    
+    <p>Football app</p>
+
+    <main>
+      <button class="like-button" onclick="increaseLikes(this)">Like</button>
+      <div class="scoreboard">
+        <h2>Real-time Scores and Statistics</h2>
+        <p>Placeholder for live scores and statistics</p>
+      </div>
+  
+      <div class="player-search">
+        <h2>Search for Players</h2>
+        <form>
+          <input type="text" placeholder="Enter player name">
+          <button type="submit">Search</button>
+        </form>
+
+      <div class="scoreboard">
+        <h2>Real-time Scores and Statistics</h2>
+        <p id="scoreboard-text">Loading...</p>
+      </div>
+      <div class="videos">
+        <h2>Videos</h2>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/tGrChc_ak1o" frameborder="0" allowfullscreen></iframe>
+
+    </main>
+    <img src="https://www.si.com/.image/t_share/MTY4MjYxNjM4MDk1NDQ3MzE3/messilioneljpg.jpg" alt="Messi in Action">
+    <img src="https://i.pinimg.com/originals/ee/d5/58/eed5581581c067a53d9892635d24f9db.jpg" alt="Cristiano Ronaldo">
+    <img src="https://i2-prod.football.london/incoming/article22258347.ece/ALTERNATES/s1200c/1_GettyImages-1355165097.jpg" alt="Reece James">
+    <img src="https://c8.alamy.com/comp/JDB4DE/ronaldinho-brazil-emirates-stadium-london-england-10-february-2009-JDB4DE.jpg" alt="Ronaldinho">
+    
+    <footer>
+      <p>Football app 2023.All rights reserved</p>
+    </footer>
+
+    <script>
+      // Use the fetch() method to make an HTTP request to the API
+      fetch('https://api.sportradar.us/soccer/trial/v4/en/players/sr:player:159665/summaries.xml?api_key=Godwin')
+        .then(function(response) {
+          // Convert the response to JSON
+          return response.json();
+        })
+        .then(function(data) {
+          // Use the data to update the scoreboard on the page
+          var scoreboardText = document.getElementById('scoreboard-text');
+          scoreboardText.innerHTML = '';
+          for (var i = 0; i < data.length; i++) {
+            var game = data[i];
+            var gameText = game.home_team + ' ' + game.home_score + ' - ' + game.away_score + ' ' + game.away_team;
+            var gameNode = document.createTextNode(gameText);
+            scoreboardText.appendChild(gameNode);
+          }
+        })
+        .catch(function(error) {
+          // Handle errors
+          console.log(error);
+          var scoreboardText = document.getElementById('scoreboard-text');
+          scoreboardText.innerHTML = 'Error: ' + error.message;
+        });
+    </script>
+  </body>
+</html>
